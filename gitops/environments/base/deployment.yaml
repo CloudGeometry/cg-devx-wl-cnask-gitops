@@ -5,7 +5,7 @@ metadata:
   name: "api"
   annotations: {
     reloader.stakater.com/auto: "true",
-    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-backend-role"
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-backend-role"
   }
   labels: {
     # <ADDITIONAL_LABELS>
@@ -68,7 +68,7 @@ metadata:
   name: "api-tenant"
   annotations: {
     reloader.stakater.com/auto: "true",
-    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-backend-role"
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-backend-role"
   }
   labels: {
     # <ADDITIONAL_LABELS>
@@ -131,7 +131,7 @@ metadata:
   name: "web-client"
   annotations: {
     reloader.stakater.com/auto: "true",
-    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-frontend-role"
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-frontend-role"
   }
   labels: {
     # <ADDITIONAL_LABELS>
@@ -194,7 +194,7 @@ metadata:
   name: "web-tenant-admin"
   annotations: {
     reloader.stakater.com/auto: "true",
-    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-frontend-role"
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-frontend-role"
   }
   labels: {
     # <ADDITIONAL_LABELS>

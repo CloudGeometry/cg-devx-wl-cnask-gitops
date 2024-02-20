@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: api-migration
-          image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/api"
+          image: "<REGISTRY_URL>/<WL_NAME>/api"
           imagePullPolicy: Always
           envFrom:
           - secretRef:
@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
         - name: api-tenant-migration
-          image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/api-tenant"
+          image: "<REGISTRY_URL>/<WL_NAME>/api-tenant"
           imagePullPolicy: Always
           envFrom:
           - secretRef:

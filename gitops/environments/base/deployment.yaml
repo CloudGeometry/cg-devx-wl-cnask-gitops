@@ -5,7 +5,7 @@ metadata:
   name: "api"
   annotations: {
     reloader.stakater.com/auto: "true",
-    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-backend-role"
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<CLUSTER_NAME>-<WL_NAME>-backend-role"
   }
   labels: {
     # <ADDITIONAL_LABELS>
@@ -31,7 +31,7 @@ spec:
             - secretRef:
                 name: "api"
           imagePullPolicy: IfNotPresent
-          image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/api"
+          image: "<REGISTRY_URL>/<WL_NAME>/api"
           livenessProbe:
             httpGet:
               path: /livez
@@ -68,7 +68,7 @@ metadata:
   name: "api-tenant"
   annotations: {
     reloader.stakater.com/auto: "true",
-    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-backend-role"
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<CLUSTER_NAME>-<WL_NAME>-backend-role"
   }
   labels: {
     # <ADDITIONAL_LABELS>
@@ -94,7 +94,7 @@ spec:
             - secretRef:
                 name: "api-tenant"
           imagePullPolicy: IfNotPresent
-          image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/api-tenant"
+          image: "<REGISTRY_URL>/<WL_NAME>/api-tenant"
           livenessProbe:
             httpGet:
               path: /livez
@@ -131,7 +131,7 @@ metadata:
   name: "web-client"
   annotations: {
     reloader.stakater.com/auto: "true",
-    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-frontend-role"
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<CLUSTER_NAME>-<WL_NAME>-frontend-role"
   }
   labels: {
     # <ADDITIONAL_LABELS>
@@ -157,7 +157,7 @@ spec:
             - secretRef:
                 name: "web-client"
           imagePullPolicy: IfNotPresent
-          image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/web-client"
+          image: "<REGISTRY_URL>/<WL_NAME>/web-client"
           livenessProbe:
             httpGet:
               path: /livez
@@ -194,7 +194,7 @@ metadata:
   name: "web-tenant-admin"
   annotations: {
     reloader.stakater.com/auto: "true",
-    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-frontend-role"
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<CLUSTER_NAME>-<WL_NAME>-frontend-role"
   }
   labels: {
     # <ADDITIONAL_LABELS>
@@ -220,7 +220,7 @@ spec:
             - secretRef:
                 name: "web-tenant-admin"
           imagePullPolicy: IfNotPresent
-          image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/web-tenant-admin"
+          image: "<REGISTRY_URL>/<WL_NAME>/web-tenant-admin"
           livenessProbe:
             httpGet:
               path: /livez

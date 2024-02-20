@@ -1,0 +1,67 @@
+---
+# Workload versions (image + image tag)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "api"
+spec:
+  template:
+    spec:
+      containers:
+      - name: "api-container"
+        image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/api"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "api-tenant"
+spec:
+  template:
+    spec:
+      containers:
+      - name: "api-tenant-container"
+        image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/api-tenant"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "web-client"
+spec:
+  template:
+    spec:
+      containers:
+      - name: "web-client-container"
+        image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/web-client"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "web-tenant-admin"
+spec:
+  template:
+    spec:
+      containers:
+      - name: "web-tenant-admin-container"
+        image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/web-tenant-admin"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: api-migration
+spec:
+  template:
+    spec:
+      containers:
+      - name: api-migration
+        image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/api"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: api-tenant-migration
+spec:
+  template:
+    spec:
+      containers:
+      - name: api-tenant-migration
+        image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/api-tenant"

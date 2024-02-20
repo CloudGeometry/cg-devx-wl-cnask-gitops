@@ -1,0 +1,252 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "api"
+  annotations: {
+    reloader.stakater.com/auto: "true",
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-backend-role"
+  }
+  labels: {
+    # <ADDITIONAL_LABELS>
+  }
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "api-app"
+  template:
+    metadata:
+      labels:
+        app: "api-app"
+    spec:
+      serviceAccountName: api
+      imagePullSecrets:
+        - name: docker-config-wl
+      containers:
+        - name: "api-container"
+          envFrom:
+            - configMapRef:
+                name: "api"
+            - secretRef:
+                name: "api"
+          imagePullPolicy: IfNotPresent
+          image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/api"
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 30
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: "128Mi"
+            requests:
+              cpu: 40m
+              memory: "64Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "api-tenant"
+  annotations: {
+    reloader.stakater.com/auto: "true",
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-backend-role"
+  }
+  labels: {
+    # <ADDITIONAL_LABELS>
+  }
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "api-tenant-app"
+  template:
+    metadata:
+      labels:
+        app: "api-tenant-app"
+    spec:
+      serviceAccountName: api-tenant
+      imagePullSecrets:
+        - name: docker-config-wl
+      containers:
+        - name: "api-tenant-container"
+          envFrom:
+            - configMapRef:
+                name: "api-tenant"
+            - secretRef:
+                name: "api-tenant"
+          imagePullPolicy: IfNotPresent
+          image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/api-tenant"
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 1
+            timeoutSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 30
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: "128Mi"
+            requests:
+              cpu: 40m
+              memory: "64Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "web-client"
+  annotations: {
+    reloader.stakater.com/auto: "true",
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-frontend-role"
+  }
+  labels: {
+    # <ADDITIONAL_LABELS>
+  }
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "web-client-app"
+  template:
+    metadata:
+      labels:
+        app: "web-client-app"
+    spec:
+      serviceAccountName: web-client
+      imagePullSecrets:
+        - name: docker-config-wl
+      containers:
+        - name: "web-client-container"
+          envFrom:
+            - configMapRef:
+                name: "web-client"
+            - secretRef:
+                name: "web-client"
+          imagePullPolicy: IfNotPresent
+          image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/web-client"
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 1
+            timeoutSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 30
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: "128Mi"
+            requests:
+              cpu: 40m
+              memory: "64Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "web-tenant-admin"
+  annotations: {
+    reloader.stakater.com/auto: "true",
+    # <K8S_ROLE_MAPPING>: "arn:aws:iam::<ACCOUNT_ID>:role/<PRIMARY_CLUSTER_NAME>-<WL_NAME>-frontend-role"
+  }
+  labels: {
+    # <ADDITIONAL_LABELS>
+  }
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "web-tenant-admin-app"
+  template:
+    metadata:
+      labels:
+        app: "web-tenant-admin-app"
+    spec:
+      serviceAccountName: web-tenant-admin
+      imagePullSecrets:
+        - name: docker-config-wl
+      containers:
+        - name: "web-tenant-admin-container"
+          envFrom:
+            - configMapRef:
+                name: "web-tenant-admin"
+            - secretRef:
+                name: "web-tenant-admin"
+          imagePullPolicy: IfNotPresent
+          image: "<REGISTRY_INGRESS_URL>/<WL_NAME>/web-tenant-admin"
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 1
+            timeoutSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 30
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: "128Mi"
+            requests:
+              cpu: 40m
+              memory: "64Mi"

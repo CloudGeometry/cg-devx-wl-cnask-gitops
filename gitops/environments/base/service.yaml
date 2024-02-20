@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+spec:
+  type: ClusterIP
+  selector:
+    app: "api-app"
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: http
+      name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-tenant
+spec:
+  type: ClusterIP
+  selector:
+    app: "api-tenant-app"
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: http
+      name: http
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-client
+spec:
+  type: ClusterIP
+  selector:
+    app: "web-client-app"
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http
+      name: http
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-tenant-admin
+spec:
+  type: ClusterIP
+  selector:
+    app: "web-tenant-admin-app"
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http
+      name: http

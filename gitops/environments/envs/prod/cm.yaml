@@ -1,0 +1,37 @@
+---
+# Business settings that will be promoted between environments
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "api"
+  labels: {}
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+data: {}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "api-tenant"
+  labels: {}
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+data: {}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "web-client"
+  labels: {}
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+data: {}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "web-tenant-admin"
+  labels: {}
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+data: {}

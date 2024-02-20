@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "api"
+spec:
+  template:
+    spec:
+      containers:
+      - name: "api-container"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "api-tenant"
+spec:
+  template:
+    spec:
+      containers:
+      - name: "api-tenant-container"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "web-client"
+spec:
+  template:
+    spec:
+      containers:
+      - name: "web-client-container"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "web-tenant-admin"
+spec:
+  template:
+    spec:
+      containers:
+      - name: "web-tenant-admin-container"

@@ -1,0 +1,19 @@
+name: Terraform
+on:
+  push:
+  pull_request:
+jobs:
+  terraform-actions:
+    name: Workflow
+    runs-on:
+      group: <GIT_RUNNER_GROUP_NAME>
+      labels: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: <TERRAFORM_VERSION>
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check

@@ -1,0 +1,98 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "api"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: "web-client.<WL_NAME>.<DOMAIN_NAME>"
+      http:
+        paths:
+          - path: /api(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: "api"
+                port:
+                  name: http
+  tls:
+    - hosts:
+        - "web-client.<WL_NAME>.<DOMAIN_NAME>"
+      secretName: web-client-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "api-tenant"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: "web-tenant-admin.<WL_NAME>.<DOMAIN_NAME>"
+      http:
+        paths:
+          - path: /api(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: "api-tenant"
+                port:
+                  name: http
+  tls:
+    - hosts:
+        - "web-tenant-admin.<WL_NAME>.<DOMAIN_NAME>"
+      secretName: web-tenant-admin-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "web-client"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: "web-client.<WL_NAME>.<DOMAIN_NAME>"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: "web-client"
+                port:
+                  name: http
+  tls:
+    - hosts:
+        - "web-client.<WL_NAME>.<DOMAIN_NAME>"
+      secretName: web-client-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "web-tenant-admin"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: "web-tenant-admin.<WL_NAME>.<DOMAIN_NAME>"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: "web-tenant-admin"
+                port:
+                  name: http
+  tls:
+    - hosts:
+        - "web-tenant-admin.<WL_NAME>.<DOMAIN_NAME>"
+      secretName: web-tenant-admin-tls

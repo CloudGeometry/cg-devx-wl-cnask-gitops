@@ -1,0 +1,15 @@
+version: 3
+automerge: true
+projects:
+  - dir: terraform/infrastructure
+    terraform_version: <TERRAFORM_VERSION>
+    autoplan:
+      enabled: true
+      when_modified: ['**/*.tf', '\!terraform/infrastructure/samples/', '*.tf*']
+    execution_order_group: 1
+  - dir: terraform/secrets
+    terraform_version: <TERRAFORM_VERSION>
+    autoplan:
+      enabled: true
+      when_modified: ['**/*.tf', '*.tf*']
+    execution_order_group: 2

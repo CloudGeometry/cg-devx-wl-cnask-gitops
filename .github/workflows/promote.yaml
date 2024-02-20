@@ -1,0 +1,77 @@
+---
+# Promote a GitOps workload from one environment to the next
+name: Promote workload
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      source_env:
+        description: Source environment
+        required: true
+        default: dev
+        type: choice
+        options: [dev, sta, prod]
+      target_env:
+        description: Target environment
+        required: true
+        default: sta
+        type: choice
+        options: [dev, sta, prod]
+      promote_container:
+        description: Promote container tag
+        required: true
+        type: boolean
+        default: true
+      promote_configmaps:
+        description: Also promote configmap settings
+        required: true
+        type: boolean
+        default: false
+      promote_settings:
+        description: Also promote workload settings
+        required: true
+        type: boolean
+        default: false
+      commit_message:
+        description: Commit message
+        required: true
+        type: string
+        default: workload promotion
+env:
+  REPO_NAME: ${{ github.repository }}
+  ARGO_NAMESPACE: wl-<WL_NAME>-dev
+jobs:
+  promote:
+    # The type of runner that the job will run on
+    runs-on:
+      group: <GIT_RUNNER_GROUP_NAME>
+      labels: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .argo
+      - name: argo cli install
+        run: |
+          # Download the binary
+             curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.5.2/argo-linux-amd64.gz
+             gunzip argo-linux-amd64.gz
+             chmod +x argo-linux-amd64
+             sudo mv ./argo-linux-amd64 /usr/local/bin/argo
+             argo version          
+      - name: argo run
+        run: |-
+          pwd
+          ls -lar
+          argo submit .argo/promote-wf.yaml \
+            -p repo=git@github.com:${REPO_NAME}.git \
+            -p env-path="gitops/environments/envs" \
+            -p source-env="${{inputs.source_env}}" \
+            -p target-env="${{inputs.target_env}}" \
+            -p promote-container=${{ inputs.promote_container }} \
+            -p promote-settings=${{inputs.promote_settings}} \
+            -p promote-configmaps=${{inputs.promote_configmaps}} \
+            -p commit-message=\""${{ inputs.commit_message }}"\" \
+            --serviceaccount argo-workflow \
+            --wait --log

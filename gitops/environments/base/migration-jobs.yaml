@@ -1,0 +1,56 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: api-migration
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  template:
+    spec:
+      containers:
+        - name: api-migration
+          image: "<REGISTRY_URL>/<WL_NAME>/api"
+          imagePullPolicy: Always
+          envFrom:
+          - secretRef:
+              name: api
+          - configMapRef:
+              name: api
+          command: ["yarn", "dbmigrate"]
+      restartPolicy: Never
+      imagePullSecrets:
+      - name: docker-config-wl
+      serviceAccount: api
+      serviceAccountName: api
+  backoffLimit: 1
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: api-tenant-migration
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  template:
+    spec:
+      containers:
+        - name: api-tenant-migration
+          image: "<REGISTRY_URL>/<WL_NAME>/api-tenant"
+          imagePullPolicy: Always
+          envFrom:
+          - secretRef:
+              name: api-tenant
+          - configMapRef:
+              name: api-tenant
+          command: ["yarn", "dbmigrate"]
+      restartPolicy: Never
+      imagePullSecrets:
+      - name: docker-config-wl
+      serviceAccount: api-tenant
+      serviceAccountName: api-tenant
+  backoffLimit: 1

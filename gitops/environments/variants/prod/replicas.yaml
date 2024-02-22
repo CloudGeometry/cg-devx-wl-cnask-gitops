@@ -1,0 +1,29 @@
+---
+# Kubernetes specific settings replicas override only!
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "api"
+spec:
+  replicas: 2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "api-tenant"
+spec:
+  replicas: 2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "web-client"
+spec:
+  replicas: 2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "web-tenant-admin"
+spec:
+  replicas: 2

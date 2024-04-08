@@ -1,0 +1,9 @@
+---
+# This ConfigMap is used by the workflow to limit concurrent execution
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: build-wow-semaphore-cm
+data:
+  wow: "4"
+

@@ -5,6 +5,7 @@ metadata:
   name: wl-artifactory-cm
   annotations:
     workflows.argoproj.io/default-artifact-repository: workload-artifact-repository
+    argocd.argoproj.io/sync-wave: "-5"
 data:
   workload-artifact-repository: |
     s3:

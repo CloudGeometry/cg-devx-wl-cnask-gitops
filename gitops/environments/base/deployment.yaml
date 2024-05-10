@@ -8,17 +8,18 @@ metadata:
     # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<CLUSTER_NAME>-<WL_NAME>-backend-role"
   }
   labels: {
+    "cg-devx.metadata.service": "<WL_NAME>-api"
     # <ADDITIONAL_LABELS>
   }
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "api-app"
+      "cg-devx.metadata.service": "<WL_NAME>-api"
   template:
     metadata:
       labels:
-        app: "api-app"
+        "cg-devx.metadata.service": "<WL_NAME>-api"
     spec:
       serviceAccountName: api
       imagePullSecrets:
@@ -71,17 +72,18 @@ metadata:
     # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<CLUSTER_NAME>-<WL_NAME>-backend-role"
   }
   labels: {
+    "cg-devx.metadata.service": "<WL_NAME>-api-tenant"
     # <ADDITIONAL_LABELS>
   }
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "api-tenant-app"
+      "cg-devx.metadata.service": "<WL_NAME>-api-tenant"
   template:
     metadata:
       labels:
-        app: "api-tenant-app"
+        "cg-devx.metadata.service": "<WL_NAME>-api-tenant"
     spec:
       serviceAccountName: api-tenant
       imagePullSecrets:
@@ -134,17 +136,18 @@ metadata:
     # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<CLUSTER_NAME>-<WL_NAME>-frontend-role"
   }
   labels: {
+    "cg-devx.metadata.service": "<WL_NAME>-web-client"
     # <ADDITIONAL_LABELS>
   }
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "web-client-app"
+      "cg-devx.metadata.service": "<WL_NAME>-web-client"
   template:
     metadata:
       labels:
-        app: "web-client-app"
+        "cg-devx.metadata.service": "<WL_NAME>-web-client"
     spec:
       serviceAccountName: web-client
       imagePullSecrets:
@@ -197,17 +200,18 @@ metadata:
     # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<CLUSTER_NAME>-<WL_NAME>-frontend-role"
   }
   labels: {
+    "cg-devx.metadata.service": "<WL_NAME>-web-tenant-admin"
     # <ADDITIONAL_LABELS>
   }
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "web-tenant-admin-app"
+      "cg-devx.metadata.service": "<WL_NAME>-web-tenant-admin"
   template:
     metadata:
       labels:
-        app: "web-tenant-admin-app"
+        "cg-devx.metadata.service": "<WL_NAME>-web-tenant-admin"
     spec:
       serviceAccountName: web-tenant-admin
       imagePullSecrets:

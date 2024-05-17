@@ -23,3 +23,6 @@ patchesStrategicMerge:
 - settings.yaml
 - migrations.yaml
 - serviceaccount.yaml
+
+transformers:
+  - label-transformer.yaml

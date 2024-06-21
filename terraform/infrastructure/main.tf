@@ -17,7 +17,7 @@ locals {
   api_tenant_db          = "cd_devx_tenant"
   api_tenant_db_username = "demoadmin"
   tags = {
-    cg-devx.cost-allocation.workload      = "<WL_NAME>"
+    "cg-devx.cost-allocation.workload"    = "<WL_NAME>"
     "cg-devx.cost-allocation.cost-center" = "development"
     "cg-devx.metadata.owner"              = "<WL_NAME>-admins.<WL_NAME>-developers"
     "provisioned-by"                      = "cg-devx"

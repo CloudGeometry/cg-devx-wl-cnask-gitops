@@ -8,7 +8,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: "api-app"
+    "cg-devx.metadata.service": "<WL_NAME>-api"
   ports:
     - protocol: TCP
       port: 3000
@@ -25,7 +25,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: "api-tenant-app"
+    "cg-devx.metadata.service": "<WL_NAME>-api-tenant"
   ports:
     - protocol: TCP
       port: 3000
@@ -43,7 +43,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: "web-client-app"
+    "cg-devx.metadata.service": "<WL_NAME>-web-client"
   ports:
     - protocol: TCP
       port: 80
@@ -61,7 +61,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: "web-tenant-admin-app"
+    "cg-devx.metadata.service": "<WL_NAME>-web-tenant-admin"
   ports:
     - protocol: TCP
       port: 80

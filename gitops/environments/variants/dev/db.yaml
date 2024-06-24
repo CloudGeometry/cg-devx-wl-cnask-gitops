@@ -1,21 +1,4 @@
 ---
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: init-postgresql
-  annotations:
-    argocd.argoproj.io/sync-wave: "-5"
-spec:
-  target:
-    name: init-postgresql
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: vault-kv-workloads-secret
-  refreshInterval: "10s"
-  dataFrom:
-    - extract:
-        key: /<WL_NAME>/dev/init_postgresql
----
 apiVersion: v1
 kind: Service
 metadata:

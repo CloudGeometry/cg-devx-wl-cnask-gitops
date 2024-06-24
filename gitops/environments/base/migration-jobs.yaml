@@ -23,7 +23,6 @@ spec:
       restartPolicy: Never
       imagePullSecrets:
       - name: docker-config-wl
-      serviceAccount: api
       serviceAccountName: api
   backoffLimit: 1
 ---
@@ -51,6 +50,5 @@ spec:
       restartPolicy: Never
       imagePullSecrets:
       - name: docker-config-wl
-      serviceAccount: api-tenant
       serviceAccountName: api-tenant
   backoffLimit: 1

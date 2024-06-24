@@ -6,9 +6,13 @@ resources:
 - ingress.yaml
 - cm.yaml
 - external-secrets.yaml
+# keda scaler config. uncomment when using keda
+# - scaledobject.yaml
+# vpa config. uncomment when using vpa
+# - vpa.yaml
 
 components:
-- ../../variants/prod
+- ../../variants/live
 
 patchesStrategicMerge:
 - deployment.yaml
@@ -16,6 +20,23 @@ patchesStrategicMerge:
 - settings.yaml
 - migrations.yaml
 - serviceaccount.yaml
+
+# remove replicas added by kustomize to the manifests if you want replicas to be controlled by HPA
+#patches:
+#  - target:
+#      version: v1
+#      kind: Deployment
+#      name: web-client
+#    patch: |-
+#      - op: remove
+#        path: /spec/replicas
+#  - target:
+#      version: v1
+#      kind: Deployment
+#      name: api
+#    patch: |-
+#      - op: remove
+#        path: /spec/replicas
 
 transformers:
   - label-transformer.yaml

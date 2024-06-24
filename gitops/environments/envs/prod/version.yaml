@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
       - name: "api-container"
-        image: "<REGISTRY_URL>/<WL_NAME>/api"
+        image: "<REGISTRY_URL>/<WL_NAME>/api:0.1.0"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: "api-tenant-container"
-        image: "<REGISTRY_URL>/<WL_NAME>/api-tenant"
+        image: "<REGISTRY_URL>/<WL_NAME>/api-tenant:0.1.0"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: "web-client-container"
-        image: "<REGISTRY_URL>/<WL_NAME>/web-client"
+        image: "<REGISTRY_URL>/<WL_NAME>/web-client:0.1.0"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: "web-tenant-admin-container"
-        image: "<REGISTRY_URL>/<WL_NAME>/web-tenant-admin"
+        image: "<REGISTRY_URL>/<WL_NAME>/web-tenant-admin:0.1.0"
 ---
 apiVersion: batch/v1
 kind: Job
@@ -53,7 +53,7 @@ spec:
     spec:
       containers:
       - name: api-migration
-        image: "<REGISTRY_URL>/<WL_NAME>/api"
+        image: "<REGISTRY_URL>/<WL_NAME>/api:0.1.0"
 ---
 apiVersion: batch/v1
 kind: Job
@@ -64,4 +64,4 @@ spec:
     spec:
       containers:
       - name: api-tenant-migration
-        image: "<REGISTRY_URL>/<WL_NAME>/api-tenant"
+        image: "<REGISTRY_URL>/<WL_NAME>/api-tenant:0.1.0"

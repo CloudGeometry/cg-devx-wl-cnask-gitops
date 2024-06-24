@@ -1,0 +1,42 @@
+---
+apiVersion: "autoscaling.k8s.io/v1"
+kind: VerticalPodAutoscaler
+metadata:
+  name: web-client-vpa
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: web-client
+  updatePolicy:
+    updateMode: "Auto"
+  resourcePolicy:
+    containerPolicies:
+      - containerName: "web-client-container"
+        minAllowed:
+          cpu: "40m"
+          memory: "128Mi"
+        maxAllowed:
+          cpu: "500m"
+          memory: "1024Mi"
+---
+apiVersion: "autoscaling.k8s.io/v1"
+kind: VerticalPodAutoscaler
+metadata:
+  name: api-vpa
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: api
+  updatePolicy:
+    updateMode: "Auto"
+  resourcePolicy:
+    containerPolicies:
+      - containerName: "api-container"
+        minAllowed:
+          cpu: 40m
+          memory: "128Mi"
+        maxAllowed:
+          cpu: "2500m"
+          memory: "4096Mi"

@@ -3,14 +3,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "api"
-  annotations: {
-    reloader.stakater.com/auto: "true",
+  annotations:
+    reloader.stakater.com/auto: "true"
     # <K8S_ROLE_MAPPING>: "arn:aws:iam::<CLOUD_ACCOUNT>:role/<CLUSTER_NAME>-<WL_NAME>-backend-role"
-  }
-  labels: {
+  labels:
     "cg-devx.metadata.service": "<WL_NAME>-api"
     # <ADDITIONAL_LABELS>
-  }
 spec:
   # do not include replicas in the manifests if you want replicas to be controlled by HPA
   replicas: 1

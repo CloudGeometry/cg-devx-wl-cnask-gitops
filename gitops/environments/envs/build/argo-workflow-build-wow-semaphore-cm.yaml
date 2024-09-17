@@ -7,5 +7,5 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-5"
 data:
-  wow: "2"
+  wow: "4"
 

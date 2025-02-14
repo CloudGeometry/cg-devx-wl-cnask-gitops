@@ -4,7 +4,7 @@ module "db_postgresql" {
   identifier = "${local.wl_name}-${local.api_db}"
 
   engine            = "postgres"
-  engine_version    = "15.5"
+  engine_version    = "15.10"
   instance_class    = "db.t3.small"
   allocated_storage = 5
   storage_encrypted = true
